@@ -1,0 +1,9 @@
+name: Sample CICD - MAIN
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+jobs:
+  ReUse:
+    uses: Harshal-HP/roboshop-github-actions/.github/workflows/ci-main.yml@main
