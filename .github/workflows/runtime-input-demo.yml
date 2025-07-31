@@ -1,0 +1,47 @@
+name: Manual App Deployment
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: "Which app to deploy?"
+        required: true
+        type: choice
+        options:
+          - app1
+          - app2
+          - app3
+          - app4
+          - app5
+          - app6
+      environment:
+        description: "Where to deploy?"
+        required: true
+        type: choice
+        options:
+          - dev
+          - sit
+          - prod
+jobs:
+  deploy:
+    runs-on: self-hosted
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Setup Node.js (example, replace with your stack)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install Dependencies
+        run: |
+          cd ${{ github.event.inputs.app }}
+          npm install
+      - name: Build App
+        run: |
+          cd ${{ github.event.inputs.app }}
+          npm run build
+      - name: Deploy
+        run: |
+          echo "Deploying ${{ github.event.inputs.app }} to ${{ github.event.inputs.environment }}..."
+          # Simulate deploy
+          cd ${{ github.event.inputs.app }}
+          echo "Running ./deploy.sh ${{ github.event.inputs.environment }}"
+          # ./deploy.sh ${{ github.event.inputs.environment }}
